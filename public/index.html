@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- TRANSICIONES -->
+  <link rel="stylesheet" href="./styles/transitions.css">
+  <link rel="stylesheet" href="./games/a date with Kurumi/style/transitions.css">
+  <!-- TRANSICIONES -->
+  <!-- ESTILOS -->
+  <link rel="stylesheet" href="./styles/main.css">
+  <!-- ESTILOS -->
+  <title>My Electron App</title>
+</head>
+
+<body>
+
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const render = ipcRenderer;
+
+
+  </script>
+
+  <div id="root"> </div>
+
+  <!-- SWEET ALERT 2 -->
+  <script src="libs/sweetalert2.all.min.js"> </script>  
+  <script src="libs/sw2.js"> </script>  
+  <!-- SWEET ALERT 2 -->
+
+
+  <!-- ELECTRON -->
+  <script src="commands/electron.utils.js"></script>
+  <script src="commands/electron.events.js"></script>
+  <!-- ELECTRON -->
+
+  <!-- LOADERS -->
+  <script src="commands/loaders.js"> </script>
+  <script src="games/a date with Kurumi/commands/loaders.js"> </script>
+  <!-- LOADERS -->
+
+
+  <!-- CLEANEARS -->
+  <script src="commands/cleaners.js"> </script>
+  <script src="games/a date with Kurumi/commands/cleaners.js"> </script>
+  <!-- CLEANEARS -->
+
+
+  <!-- WINDOW INTERACTIONS -->
+  <script src="games/a date with Kurumi/commands/user.commands.js"> </script>
+  <!-- WINDOW INTERACTIONS -->
+
+
+  <!-- MANIFIESTOS -->
+  <script src="manifiestos/manifiest.elements.js"></script>
+  <script src="games/a date with Kurumi/manifiestos/manifiest.elements.js"></script>
+  <!-- MANIFIESTOS -->
+
+  <!-- APP RUNNER -->
+  <script src="commands/error.js"> </script>  
+  <!-- APP RUNNER -->
+
+
+  <!-- APP RUNNER -->
+  <script src="runner.js"></script>
+  <!-- APP RUNNER -->
+</body>
+
+</html>
