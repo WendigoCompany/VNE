@@ -186,7 +186,12 @@ const GET_USER_CONFIG = () => {
     render.send("get-config")
     
     render.once("re-get-config", (e, config) => {
-            USER_CONFIG = config;
+        if(!config.bool){
+            ERROR_HANDLE(config)
+        }
+
+
+        // USER_CONFIG = config;
     })
 }
 // OBTENIENDO LA RUTA COMPLETA DE PUBLIC

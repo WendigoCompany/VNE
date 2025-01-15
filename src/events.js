@@ -1,10 +1,11 @@
 
 
-const {ipcMain } = require('electron');
+const {ipcMain, app } = require('electron');
 const { log } = require('console');
 const { readFile } = require("./forldermanager");
-const { PUBLIC_ROUTE } = require('./rooting');
-const { CREATE_SAVE_FOLDER } = require('./controllers/userdata_manager');
+const { PUBLIC_ROUTE, APP_EXE_ROUTE, GET_ROOT } = require('./rooting');
+const { READ_USERCONFIG } = require('./controllers/userdata_manager');
+const { CREATE_LOG } = require('./controllers/log');
 
 const path = require('path');
 
@@ -27,11 +28,20 @@ ipcMain.on("get-public",async (e)=>{
 
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 ipcMain.on("get-config",async (e)=>{
-    CREATE_SAVE_FOLDER()
-    // e.reply("re-get-config",PUBLIC_ROUTE )
+    const resp = await READ_USERCONFIG()
+    e.reply("re-get-config",resp )
 })
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 
+// ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
+ipcMain.on("exit", (e,err)=>{    
+    // app.quit()
+    if(err){
+        CREATE_LOG(err,1) 
+    }
+    
+})
+// ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 
 module.exports ={}
 

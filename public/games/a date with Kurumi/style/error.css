@@ -1,0 +1,20 @@
+.sw2-title{
+    font-size: 4vh;
+    font-family: "Poppins-Medium";
+    color: #ff3d3d;
+}
+
+.sw2-popup{
+
+    border: 2px solid red;
+    background-color: #00000080;
+}
+
+.sw2-text{
+    color: #ff3d3d;
+    font-family: "Poppins-Medium";
+}
+
+.sw2-confirmBtn{
+    width: 80%;
+}

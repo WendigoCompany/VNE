@@ -76,6 +76,7 @@
  * @property {Function}  willClose
  * @property {Function}  didClose
  * @property {Function}  didDestroy
+ * @property {Function} onEnd 
  * @property {number} timer
  * @property {'false' | 'true'} animation 
  * @property {'false' | 'true'} backdrop 
@@ -157,6 +158,7 @@
  * @property {number} step
  * @property {string} type
  * @property {string} value 
+
  * 
  * 
  * @typedef {Object} ShowClass
@@ -282,7 +284,7 @@ class SA {
             returnInputValueOnDeny,
             inputAutoFocus,
             inputAutoTrim,
-
+            onEnd,
 
 
 
@@ -360,7 +362,7 @@ class SA {
         this.didClose = didClose;
         this.didDestroy = didDestroy;
         this.timer = timer;
-
+        this.onEnd = onEnd
         this.animation = (animation) ? (Boolean(animation)) : (undefined);
         this.backdrop = (backdrop) ? (Boolean(backdrop)) : (undefined);
         this.toast = (toast) ? (Boolean(toast)) : (undefined);
@@ -411,7 +413,7 @@ class SA {
             this.target = document.querySelector(this.target)
         }
 
-        this.modal = Swal.fire({ ...this })
+        this.modal = Swal.fire({ ...this }).then((a)=>{this.onEnd(a)})
     }
 }
 

@@ -1,2 +1,5 @@
 node_modules/
 dist/
+font.importer.js
+log.txt
+save/
