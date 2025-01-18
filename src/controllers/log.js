@@ -4,8 +4,7 @@ const { APP_EXE_ROUTE, GET_ROOT } = require("../rooting");
 
 const { join } = require("path");
 const { log } = require("console");
-const { setTimeout } = require("timers/promises");
-const { SET_HOLDER } = require("../txt_holder");
+
 
 const CREATE_LOG = async (err, salts = 0) => {
     let log = "";
@@ -21,8 +20,7 @@ const CREATE_LOG = async (err, salts = 0) => {
         log = GET_DATE() + `Error Code ${err}` + "\n";
 
     }
-    SET_HOLDER(GET_ROOT("root", salts))
-    ipcMain.emit('send-console-log')
+
     
     await writeFile(join(GET_ROOT("root", salts) + "/log.txt"), log);
 

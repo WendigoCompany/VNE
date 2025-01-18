@@ -1,3 +1,23 @@
 .base{
     opacity: 0;
 }
+
+*{
+    margin: 0;
+    padding: 0;
+overflow: hidden;
+}
+
+#logo-cont{
+    width: 100%;
+    height: 100%;
+    margin-top: 2%;
+    text-align: center;
+}
+
+.logo{
+    width: 50%;
+    height: 80%;
+}
+
+

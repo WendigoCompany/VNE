@@ -5,6 +5,7 @@ const path = require('path');
 
 
 
+
 const dirname = __dirname;
 
 const isDev = process.env.APP_DEV;
@@ -18,13 +19,12 @@ const PUBLIC_ROUTE = path.join(ROOT_ROUTE, "/public");
 
 const GET_ROOT = (folder, salts = 0, extra = { extra_folder: "" }) => {
     let rootslats = "/";
-    for (let i = 0; i < salts; i++) rootslats += "../";
+
+    if (!isDev) salts += 2
 
 
-    ipcMain.emit("console.log", "puta")
-    if (isDev) {
-        salts += 3
-    }
+    for (let i = 0; i < salts; i++) { rootslats += "../"; }
+
     switch (folder) {
         case "root":
             return (path.join(dirname + rootslats + extra.extra_folder))

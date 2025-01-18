@@ -1,0 +1,3 @@
+1-- Error al crear la carpeta save
+2-- Error al leer la configuracion de usuario
+3-- Error al crear la configuracion inicial

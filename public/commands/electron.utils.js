@@ -189,9 +189,14 @@ const GET_USER_CONFIG = () => {
         if(!config.bool){
             ERROR_HANDLE(config)
         }
+        console.log(config.data);
+        
+        render.send("update-window-size",{w: parseInt(config.data.resolution.split("x")[0]),h: parseInt(config.data.resolution.split("x")[1])})
+        render.send("update-window-fs",config.data.fullscreen)
 
-
-        // USER_CONFIG = config;
+        USER_CONFIG = config;
+        sessionStorage.setItem("uconfig", config)
+        SET_ROOT_SIZE({w: parseInt(config.data.resolution.split("x")[0]) - 10,h: parseInt(config.data.resolution.split("x")[1]) - 10})
     })
 }
 // OBTENIENDO LA RUTA COMPLETA DE PUBLIC

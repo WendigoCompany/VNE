@@ -8,7 +8,11 @@ const GET_HOLDER = () => {
 
 };
 
+
+console.internal ={
+    get : GET_HOLDER,
+    set : SET_HOLDER
+};
 module.exports = {
-    GET_HOLDER,
-    SET_HOLDER
+  
 };

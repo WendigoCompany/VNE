@@ -28,20 +28,30 @@ ipcMain.on("get-public",async (e)=>{
 
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 ipcMain.on("get-config",async (e)=>{
-    const resp = await READ_USERCONFIG()
+    const resp = await READ_USERCONFIG(1)
+    
     e.reply("re-get-config",resp )
 })
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
-ipcMain.on("exit", (e,err)=>{    
-    // app.quit()
+ipcMain.on("exit", async (e,err)=>{    
     if(err){
-        CREATE_LOG(err,1) 
+       await CREATE_LOG(err,1) 
     }
+    app.quit()
     
 })
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
+
+// CAMBIA LA RESOLUCION DE LA SCREEN
+ipcMain.on("change-resolution",(e,size)=>{
+
+})
+// CAMBIA LA RESOLUCION DE LA SCREEN
+
+
+
 
 module.exports ={}
 
