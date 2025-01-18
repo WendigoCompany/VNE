@@ -44,7 +44,27 @@ const FIX_SRC = (src) => {
 };
 
 
-const PROCESS_TEXT =()=>{
+const PROCESS_TEXT = (txt, txtfile = {}) => {
+    console.log(USER_CONFIG);
+    
+    if (!txt.includes("@username@")) {
+        console.log(txtfile);
+        console.log(USER_CONFIG.lang);
+        
+        txtfile = txtfile[USER_CONFIG.lang]
+        if (txtfile) {
+            if (txtfile[txt]) {
+                return txtfile[txt]
+            } else {
+                return txt
+            }
+        } else {
+            return "NO LANG"
+        }
+    } else {
+
+    }
+
 
 }
 
@@ -57,29 +77,30 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
 
 
     render.send("load-html", tag)
-    render.once("re-load-html", (e, txt) => {
+    render.once("re-load-html", (e, data) => {
+        const [html, txt] = data;
         let public = "";
+        console.log(txt);
 
         let ORDENATED = [[],];
 
-        console.log(public_url);
 
         let doc = document.createElement("div");
 
-        doc.innerHTML = txt;
+        doc.innerHTML = html;
         doc = doc.firstChild;
 
         const html_list = DEFRAGHTML(doc)
         console.log(DEFRAGHTML_list);
 
-        const TEXT_TAG =["LABEL"];
+        const TEXT_TAG = ["LABEL"];
         for (let i = 0; i < 5; i++) {
-            TEXT_TAG.push(`H${i+1}`)
-            
+            TEXT_TAG.push(`H${i + 1}`)
+
         }
 
 
-        
+
 
         for (let i = 0; i < DEFRAGHTML_list.length; i++) {
             // if(DEFRAGHTML_list[i].attributes.src != undefined){
@@ -87,10 +108,10 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
             // }
             DEFRAGHTML_list[i].element.setAttribute("data-type", tag)
 
-            
-            if(DEFRAGHTML_list[i].element.textContent.trim() != "" && TEXT_TAG.indexOf(DEFRAGHTML_list[i].tagName) != -1){
-                
-                PROCESS_TEXT(DEFRAGHTML_list[i].element.textContent)              
+
+            if (DEFRAGHTML_list[i].element.textContent.trim() != "" && TEXT_TAG.indexOf(DEFRAGHTML_list[i].tagName) != -1) {
+
+                DEFRAGHTML_list[i].element.textContent = PROCESS_TEXT(DEFRAGHTML_list[i].element.textContent, txt)
             }
 
             if (DEFRAGHTML_list[i].attributes["data-order"]) {
@@ -127,33 +148,33 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
                             ele.style.opacity = 1;
                         })
                     } catch (error) {
-                        
+
                     }
                 }
 
-                if(man.duration != false && man.duration != undefined){
+                if (man.duration != false && man.duration != undefined) {
                     setTimeout(() => {
-          
-                            if (Array.isArray(ORDENATED[man.order])) {
-                                try {
-                                    ORDENATED[man.order].map(ele => {
-                                        ele.style.opacity = 0;
-                                        ele.setAttribute("data-stade", "trash")
-                                        if (manifiest.length == (i + 1)) {
-                                            onfinish()
-                                        }
-            
-            
-                                    })
-                                } catch (error) {
-                                    
-                                }
+
+                        if (Array.isArray(ORDENATED[man.order])) {
+                            try {
+                                ORDENATED[man.order].map(ele => {
+                                    ele.style.opacity = 0;
+                                    ele.setAttribute("data-stade", "trash")
+                                    if (manifiest.length == (i + 1)) {
+                                        onfinish()
+                                    }
+
+
+                                })
+                            } catch (error) {
+
                             }
-        
-                      
-    
+                        }
+
+
+
                     }, man.duration * 1000);
-    
+
                 }
             }, (timer) * 1000);
 
@@ -184,19 +205,18 @@ const GET_PUBLIC = () => {
 // OBTENIENDO LA RUTA COMPLETA DE PUBLIC
 const GET_USER_CONFIG = () => {
     render.send("get-config")
-    
+
     render.once("re-get-config", (e, config) => {
-        if(!config.bool){
+        if (!config.bool) {
             ERROR_HANDLE(config)
         }
-        console.log(config.data);
-        
-        render.send("update-window-size",{w: parseInt(config.data.resolution.split("x")[0]),h: parseInt(config.data.resolution.split("x")[1])})
-        render.send("update-window-fs",config.data.fullscreen)
 
-        USER_CONFIG = config;
-        sessionStorage.setItem("uconfig", config)
-        SET_ROOT_SIZE({w: parseInt(config.data.resolution.split("x")[0]) - 10,h: parseInt(config.data.resolution.split("x")[1]) - 10})
+        render.send("update-window-size", { w: parseInt(config.data.resolution.split("x")[0]), h: parseInt(config.data.resolution.split("x")[1]) })
+        render.send("update-window-fs", config.data.fullscreen)
+
+        USER_CONFIG = config.data;
+        sessionStorage.setItem("uconfig", config.data)
+        SET_ROOT_SIZE({ w: parseInt(config.data.resolution.split("x")[0]) - 10, h: parseInt(config.data.resolution.split("x")[1]) - 10 })
     })
 }
 // OBTENIENDO LA RUTA COMPLETA DE PUBLIC

@@ -2,7 +2,7 @@ let manifiest_intro = [
     {
         order: 1,
         entry: 1,
-        duration: 999,
+        duration: 3,
     }
 ];
 

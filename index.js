@@ -13,7 +13,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 100,
     height: 100,
-    resizable: true,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -30,19 +30,7 @@ function createWindow() {
     mainWindow.webContents.send('re-changed-resolution', newReso);
   })
 
-  mainWindow.on('maximize', () => {
-    const { width, height } = mainWindow.getBounds();
-    console.internal.set(`${width}x${height}`)
-    ipcMain.emit("main-changed-resolution")
 
-  });
-
-  mainWindow.on('unmaximize', () => {
-    const { width, height } = mainWindow.getBounds();
-    console.internal.set(`${width}x${height}`)
-    ipcMain.emit("main-changed-resolution")
-
-  });
 
 
 
