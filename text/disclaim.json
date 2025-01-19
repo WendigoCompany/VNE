@@ -1,6 +1,14 @@
 {
     "en": {
-        "disclaim_1": "TEXTO DE PRUEBA"
+        "disclaim_1": "This game contains explicit material. All scenes depicted in the game are fictional and should not be reproduced in real life. It should only be played by persons over 18 years of age.",
+        "disclaim_2": "All characters depicted in this work are fictitious and are at least 18 years old. Any resemblance to names, situations, etc. is purely coincidental.",
+        "disclaim_3": "This game contains third party content. This work is not intended to promote or facilitate piracy or plagiarism. This is a work created solely for adult entertainment. All rights belong to and remain with their respective creators.",
+        "disclaim_4": "I hope you enjoy it."
     },
-    "es": {}
+    "es": {
+        "disclaim_1": "Este juego contiene material explicito. Todas las escenas mostradas en el juego son ficticias y no deben ser replicadas en la vida real y el mismo solo debería ser jugado por personas con una edad de 18 o mas años.",
+        "disclaim_2": "Todos los personajes representados en esta obra son ficticios y tienen al menos 18 años. Cualquier parecido con nombres, situaciones, etc. es pura coincidencia. ",
+        "disclaim_3": "Este juego contiene contenido de terceros. Esta obra no pretende promover ni facilitar la piratería o el plagio del mismo. Se trata de una obra creada exclusivamente para el entretenimiento de adultos. Todos los derechos pertenecen y permanecerán en poder de sus respectivos creadores.",
+        "disclaim_4": "Espero que disfrutes de ella..."
+    }
 }

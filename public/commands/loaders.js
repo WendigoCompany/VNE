@@ -12,3 +12,4 @@ const SET_ROOT_SIZE=(size)=>{
     document.getElementById("root").style.width = `${size.w}px`;
     document.getElementById("root").style.height = `${size.h}px`;
 }
+

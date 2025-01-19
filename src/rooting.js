@@ -20,7 +20,7 @@ const PUBLIC_ROUTE = path.join(ROOT_ROUTE, "/public");
 const GET_ROOT = (folder, salts = 0, extra = { extra_folder: "" }) => {
     let rootslats = "/";
 
-    if (!isDev) salts += 2
+    if (!isDev) salts += 1
 
 
     for (let i = 0; i < salts; i++) { rootslats += "../"; }

@@ -1,4 +1,6 @@
-
+.base{
+    transition: opacity 1s;
+}
 
 .logo{
     transition: opacity 1s;

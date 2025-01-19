@@ -31,6 +31,12 @@ const GET_DATE = () => {
     return (`[${fdate.getDate()}/${fdate.getMonth() + 1}/${fdate.getFullYear()} ${fdate.getHours()}:${fdate.getMinutes()}:${fdate.getSeconds()}]`)
 }
 
+const INTERNAL_LOG =(msj)=>{
+    console.internal.set(msj)
+    ipcMain.emit("send-console-log")
+}
+
 module.exports = {
-    CREATE_LOG
+    CREATE_LOG,
+    INTERNAL_LOG
 }

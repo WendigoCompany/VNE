@@ -4,7 +4,7 @@ const { ipcMain, app } = require('electron');
 const { readFile } = require("./forldermanager");
 const { GET_ROOT } = require('./rooting');
 const { READ_USERCONFIG } = require('./controllers/userdata_manager');
-const { CREATE_LOG } = require('./controllers/log');
+const { CREATE_LOG, INTERNAL_LOG } = require('./controllers/log');
 
 const path = require('path');
 
@@ -14,20 +14,24 @@ const path = require('path');
 // CARGA LA PLANTILLA .HTML DE UNA PAGINA Y LA ENVIA COMO PLAIN-TEXT
 ipcMain.on("load-html", async (e, tag) => {
 
-    // CARGANDO EL CONTENIDO HTML
-    const data = (await readFile(GET_ROOT("public", 1) + "/html/" + tag + ".html")).toString()
-
-    // CARGANDO EL CONTENIDO PLAIN/TXT
-    let txt;
     try {
-        txt = JSON.parse((await readFile(GET_ROOT("root", 1) + "/text/" + tag + ".json")).toString())
-    } catch (error) {
-        if (error.errno != -4058) {
-            await CREATE_LOG(4, 1)
-        }
-    }
+        // CARGANDO EL CONTENIDO HTML
+        const data = (await readFile(GET_ROOT("root", 1) + "/public/html/" + tag + ".html")).toString()
 
-    e.reply("re-load-html", [data, txt])
+        // CARGANDO EL CONTENIDO PLAIN/TXT
+        let txt;
+        try {
+            txt = JSON.parse((await readFile(GET_ROOT("public", 1) + "/text/" + tag + ".json")).toString())
+        } catch (error) {
+            if (error.errno != -4058) {
+                await CREATE_LOG(4, 1)
+            }
+        }
+
+        e.reply("re-load-html", [data, txt])
+    } catch (error) {
+        INTERNAL_LOG(JSON.stringify(error))
+    }
 })
 // CARGA LA PLANTILLA .HTML DE UNA PAGINA Y LA ENVIA COMO PLAIN-TEXT
 
@@ -40,7 +44,7 @@ ipcMain.on("get-public", async (e) => {
 
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 ipcMain.on("get-config", async (e) => {
-    const resp = await READ_USERCONFIG(1)
+    const resp = await READ_USERCONFIG(2)
 
     e.reply("re-get-config", resp)
 })
@@ -49,7 +53,7 @@ ipcMain.on("get-config", async (e) => {
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 ipcMain.on("exit", async (e, err) => {
     if (err) {
-        await CREATE_LOG(err, 1)
+        await CREATE_LOG(err, 2)
     }
     app.quit()
 
