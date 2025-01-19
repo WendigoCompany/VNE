@@ -1,17 +1,17 @@
 const { app, ipcMain } = require("electron");
 const { writeFile, readFile } = require("../forldermanager");
-const { APP_EXE_ROUTE, GET_ROOT } = require("../rooting");
-
 const { join } = require("path");
-const { log } = require("console");
+const { TO_OUTSIDE } = require("../../rooting");
 
 
-const CREATE_LOG = async (err, salts = 0) => {
+const CREATE_LOG = async (err) => {
     let log = "";
     try {
-        log = await readFile(join(APP_EXE_ROUTE + "./log.txt"));
+        log = await readFile(join(TO_OUTSIDE + "/log.txt"));
         log += GET_DATE() + `Error Code ${err}` + "\n";
     } catch (error) {
+        console.log(error);
+        
         if (error.errno != -4058) {
             console.log(error);
 
@@ -22,7 +22,7 @@ const CREATE_LOG = async (err, salts = 0) => {
     }
 
     
-    await writeFile(join(GET_ROOT("root", salts) + "/log.txt"), log);
+    await writeFile(join(TO_OUTSIDE + "/log.txt"), log);
 
 }
 const GET_DATE = () => {

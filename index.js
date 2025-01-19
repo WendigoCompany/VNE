@@ -4,7 +4,7 @@ const { writeSync, readSync, readFileSync, writeFileSync } = require('fs');
 const { } = require("./src/events");
 const { } = require('./src/txt_holder');
 const { internal, log } = require("console");
-const { GET_ROOT } = require('./src/rooting');
+
 const { CHANGE_RESOLUTION } = require('./src/controllers/screen_functions');
 
 
