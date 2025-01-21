@@ -8,31 +8,19 @@ const ERROR_HANDLE = (error) => {
             title: "sw2-title",
             popup: "sw2-popup",
             htmlContainer: "sw2-text",
-              confirmButton: "sw2-confirmBtn",
-         
+            confirmButton: "sw2-confirmBtn",
+
         },
 
     };
     switch (error.icode) {
         case 1:
-            msj.onEnd = ({ isConfirmed }) => {
-                
-                render.send("exit", error.icode)
-
-            }
-
-            break;
-
         case 2:
-            msj.onEnd = ({ isConfirmed }) => {
-                
-                render.send("exit", error.icode)
-
-            }
-            break;
         case 3:
+        case 4:
+        case 5:
             msj.onEnd = ({ isConfirmed }) => {
-                
+
                 render.send("exit", error.icode)
 
             }
@@ -45,8 +33,8 @@ const ERROR_HANDLE = (error) => {
     new SA({
 
 
-        
-     
+
+
         ...msj
     }).show();
 

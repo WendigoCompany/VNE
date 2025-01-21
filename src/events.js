@@ -2,7 +2,7 @@
 
 const { ipcMain, app } = require('electron');
 const { readFile } = require("./forldermanager");
-const { READ_USERCONFIG } = require('./controllers/userdata_manager');
+const { READ_USERCONFIG, UPDATE_CONFIG } = require('./controllers/userdata_manager');
 const { CREATE_LOG, INTERNAL_LOG } = require('./controllers/log');
 
 const path = require('path');
@@ -42,6 +42,9 @@ ipcMain.on("get-public", async (e) => {
 })
 // ENVIA LA RUTA COMPLETA DEL FOLDER PUBLIC
 
+
+//********************************CONFIG EVENTS --- INICIO**************************************
+
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 ipcMain.on("get-config", async (e) => {
     const resp = await READ_USERCONFIG()
@@ -50,7 +53,34 @@ ipcMain.on("get-config", async (e) => {
 })
 // ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
 
-// ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
+
+// ACTUALIZAR CONFIGURACION
+ipcMain.on("update-config", async (e, config) => {
+    const resp = await UPDATE_CONFIG(config)
+    e.reply("re-update-config", resp)
+
+})
+// ACTUALIZAR CONFIGURACION
+
+
+// CAMBIA LA RESOLUCION DE LA SCREEN
+ipcMain.on("change-resolution", (e, size) => {
+
+})
+// CAMBIA LA RESOLUCION DE LA SCREEN
+
+
+// CAMBIAR FULL SCREEN
+ipcMain.on("change-fullscreen", (e, size) => {
+
+})
+// CAMBIAR FULL SCREEN
+
+
+//********************************CONFIG EVENTS --- END**************************************
+
+
+// CIERRA EL PROGRAMA
 ipcMain.on("exit", async (e, err) => {
     if (err) {
         await CREATE_LOG(err)
@@ -58,13 +88,9 @@ ipcMain.on("exit", async (e, err) => {
     app.quit()
 
 })
-// ENVIA LA CONFIGURACION GUARDADA DEL USUARIO
+// CIERRA EL PROGRAMA
 
-// CAMBIA LA RESOLUCION DE LA SCREEN
-ipcMain.on("change-resolution", (e, size) => {
 
-})
-// CAMBIA LA RESOLUCION DE LA SCREEN
 
 
 

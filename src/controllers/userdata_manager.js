@@ -1,6 +1,7 @@
 const { TO_OUTSIDE } = require("../../rooting");
 const { readFile, readdir, mkdir, writeFile } = require("../forldermanager");
 const path = require('path');
+const { CREATE_LOG } = require("./log");
 
 
 const CREATE_USERCONFIG = async () => {
@@ -57,8 +58,18 @@ const READ_USERCONFIG = async () => {
     }
 }
 
+const UPDATE_CONFIG = async(config)=>{
+    try {
+        await writeFile(path.join(TO_OUTSIDE + "/save/config.json"), JSON.stringify(config));
+        return { bool: 200}
+    } catch (error) {
+        await CREATE_LOG(5)
+        return { bool: false, code: error, icode: 5 }
+    }
+}
 
 module.exports = {
     READ_USERCONFIG,
+    UPDATE_CONFIG,
 
 }

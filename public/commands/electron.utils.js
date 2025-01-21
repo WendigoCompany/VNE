@@ -5,7 +5,7 @@
 
 // DESFRAGMENTA EL ARCHIVO HTML Y PROVEE UN ARR CON SUS PROPIEDADES
 let DEFRAGHTML_list = [];
-
+let textCache = {};
 function DEFRAGHTML(element, defraid = 0) {
     const obj = {
         tagName: element.tagName,
@@ -48,9 +48,6 @@ const PROCESS_TEXT = (txt, txtfile = {}) => {
     console.log(USER_CONFIG);
     
     if (!txt.includes("@username@")) {
-        console.log(txtfile);
-        console.log(USER_CONFIG.lang);
-        
         txtfile = txtfile[USER_CONFIG.lang]
         if (txtfile) {
             if (txtfile[txt]) {
@@ -80,8 +77,8 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
     render.once("re-load-html", (e, data) => {
         const [html, txt] = data;
         let public = "";
-        console.log(txt);
 
+        textCache = txt
         let ORDENATED = [[],];
 
 
@@ -108,11 +105,13 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
             // }
             DEFRAGHTML_list[i].element.setAttribute("data-type", tag)
 
-
+            // MANEJO DE TEXTO
             if (DEFRAGHTML_list[i].element.textContent.trim() != "" && TEXT_TAG.indexOf(DEFRAGHTML_list[i].tagName) != -1) {
-
+                DEFRAGHTML_list[i].element.setAttribute("data-text-elem", "t")
+                DEFRAGHTML_list[i].element.setAttribute("data-txt-origin", DEFRAGHTML_list[i].element.textContent)
                 DEFRAGHTML_list[i].element.textContent = PROCESS_TEXT(DEFRAGHTML_list[i].element.textContent, txt)
             }
+            // MANEJO DE TEXTO
 
             if (DEFRAGHTML_list[i].attributes["data-order"]) {
                 let ord = parseInt(DEFRAGHTML_list[i].attributes["data-order"]);
