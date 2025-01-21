@@ -46,7 +46,7 @@ const FIX_SRC = (src) => {
 
 const PROCESS_TEXT = (txt, txtfile = {}) => {
     console.log(USER_CONFIG);
-    
+
     if (!txt.includes("@username@")) {
         txtfile = txtfile[USER_CONFIG.lang]
         if (txtfile) {
@@ -69,10 +69,6 @@ const PROCESS_TEXT = (txt, txtfile = {}) => {
 
 // CARGANDO UN ARCHIVO HTML
 const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
-
-
-
-
     render.send("load-html", tag)
     render.once("re-load-html", (e, data) => {
         const [html, txt] = data;
@@ -88,9 +84,8 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
         doc = doc.firstChild;
 
         const html_list = DEFRAGHTML(doc)
-        console.log(DEFRAGHTML_list);
 
-        const TEXT_TAG = ["LABEL"];
+        const TEXT_TAG = ["LABEL", "BUTTON"];
         for (let i = 0; i < 5; i++) {
             TEXT_TAG.push(`H${i + 1}`)
 

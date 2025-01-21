@@ -1,20 +1,29 @@
-body{
+body {
     background-color: black;
 }
 
-.disclaim-cont{
+.disclaim-cont {
     text-align: center;
     width: 80%;
     margin-left: 10%;
 }
 
-.disclaim-txt{
+.disclaim-txt {
     color: #e3e3e3;
     font-size: 3vh;
     margin-top: 2%;
 }
 
-.disclaim-icon{
+.disclaim-icon {
     margin-top: 5%;
     width: 30vh;
+}
+
+.buttonera {
+    position: fixed;
+
+}
+
+.btn {
+    cursor: pointer;
 }

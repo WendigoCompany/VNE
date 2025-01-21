@@ -1,0 +1,28 @@
+.mm-background{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.mm-buttonera{
+    bottom: 10%;
+    left: 2%;
+    width: 30%;
+}
+
+.mm-btn{
+    font-size: 1.8rem;
+    margin-bottom: 2%;
+    padding: 2% 3%;
+    background-color: transparent;
+    border: none;
+    transition: background-color .5s, -webkit-box-shadow .5s, box-shadow .5s;
+}
+
+.mm-btn:hover{
+    color: rgba(217, 0, 0, 0.695);
+    background-color: rgba(0, 0, 0, 0.245);
+    -webkit-box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 50px 5px rgba(0,0,0,0); 
+    box-shadow: 5px 5px 5px 0px #000000, inset 4px 4px 15px 0px #000000, 5px 5px 50px 5px rgba(0,0,0,0);
+}

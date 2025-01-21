@@ -45,37 +45,55 @@ const CLEAN_TARGET = (timeOpacity = 5, origin) => {
 // ELIMINAR UNA PAGINA
 
 const KILL_INTRO = (premature = false) => {
-    LINK_TO("intro", 1)
-    PREMATURE_KILL(premature, "intro")
-    CLEAN_TARGET(2, "intro")
+    const compo = "intro";
+    LINK_TO(compo, 1)
+    PREMATURE_KILL(premature, compo)
+    CLEAN_TARGET(2, compo)
 }
 
 const KILL_DISCLAIM1 = (premature = false) => {
-    let timeOpacity = 2;
-    const elements = document.querySelectorAll('[data-type="disclaim1"]');
-    if (premature) {
-        for (let i = 0; i < elements.length; i++) {
-            const ele = elements[i];
-            ele.style.opacity = 0;
-            ele.setAttribute("data-stade", "trash")
-        }
-    }
+    const compo = "disclaim";
+    LINK_TO(compo, 2)
+    CLEAN_TARGET(2, compo)
+    // let timeOpacity = 2;
+    // const elements = document.querySelectorAll('[data-type="disclaim1"]');
 
-    setTimeout(() => {
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].remove()
+    // setTimeout(() => {
+    //     for (let i = 0; i < elements.length; i++) {
+    //         elements[i].remove()
 
-        }
-    }, timeOpacity * 1000);
+    //     }
+    // }, timeOpacity * 1000);
 }
+
+const KILL_MAIN_MENU = (premature = false) => {
+    // let timeOpacity = 2;
+    // const elements = document.querySelectorAll('[data-type="disclaim1"]');
+    // if (premature) {
+    //     for (let i = 0; i < elements.length; i++) {
+    //         const ele = elements[i];
+    //         ele.style.opacity = 0;
+    //         ele.setAttribute("data-stade", "trash")
+    //     }
+    // }
+
+    // setTimeout(() => {
+    //     for (let i = 0; i < elements.length; i++) {
+    //         elements[i].remove()
+
+    //     }
+    // }, timeOpacity * 1000);
+}
+
+
 
 // LIMPIEZA DE
 setInterval(() => {
     const elements = document.querySelectorAll('[data-stade="trash"]');
-    if(elements.length > 10){
+    if (elements.length > 10) {
         for (let i = 0; i < elements.length; i++) {
-            elements[i].remove()    
+            elements[i].remove()
         }
     }
-}, 5*60*1000);
+}, 5 * 60 * 1000);
 // LIMPIEZA DE

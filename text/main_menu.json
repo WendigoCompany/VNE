@@ -1,0 +1,16 @@
+{
+    "en": {
+        "mm-btn-start": "NEW GAME",
+        "mm-btn-saveload": "LOAD GAME",
+        "mm-btn-options": "OPTIONS",
+        "mm-btn-credits": "CREDITS",
+        "mm-btn-exit": "EXIT"
+    },
+    "es": {
+        "mm-btn-start": "JUEGO NUEVO",
+        "mm-btn-saveload": "CARGAR PARTIDA",
+        "mm-btn-options": "OPCIONES",
+        "mm-btn-credits": "CREDITOS",
+        "mm-btn-exit": "SALIR"
+    }
+}

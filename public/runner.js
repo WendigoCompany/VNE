@@ -19,6 +19,10 @@ const START_PROGRAM = (stade) => {
         case 1:
             LOAD_DISCLAIM_1()
             break;
+        case 2:
+            LOAD_MAIN_MENU()
+            break;
+
         default:
             break;
     }
@@ -34,8 +38,9 @@ const START_PROGRAM = (stade) => {
 
 
 let start_interval = setInterval(() => {
-    if(public_url.length != 0 && Object.keys(USER_CONFIG).length != 0){
-        START_PROGRAM(0);
+    if (public_url.length != 0 && Object.keys(USER_CONFIG).length != 0) {
+         START_PROGRAM(0);
+        // START_PROGRAM(2);
         clearInterval(start_interval)
     }
 }, 100);;
