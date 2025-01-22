@@ -16,10 +16,19 @@ const LOAD_MAIN_MENU= () => {
         try {
             SET_IMAGE_CONTAINER()
             clearInterval(int)
-        } catch (error) {
+            document.getElementById("mm-modal-exit").onclick = EXIT_FUNCTION
+            document.getElementById("mm-modal-options").onclick = OPTION_MODAL
+
             
+        } catch (error) {
+            console.log(error);
+               
         }
     }, 10);;
+
+
+
+
 }
 
 const SET_ROOT_SIZE=(size)=>{

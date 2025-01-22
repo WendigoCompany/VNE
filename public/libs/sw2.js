@@ -78,33 +78,33 @@
  * @property {Function}  didDestroy
  * @property {Function} onEnd 
  * @property {number} timer
- * @property {'false' | 'true'} animation 
- * @property {'false' | 'true'} backdrop 
- * @property {'false' | 'true'} toast 
- * @property {'false' | 'true'} timerProgressBar 
- * @property {'false' | 'true'} heightAuto 
- * @property {'false' | 'true'} allowOutsideClick 
- * @property {'false' | 'true'} allowEscapeKey 
- * @property {'false' | 'true'} stopKeydownPropagation 
- * @property {'false' | 'true'} keydownListenerCapture 
- * @property {'false' | 'true'} showConfirmButton 
- * @property {'false' | 'true'} showDenyButton 
- * @property {'false' | 'true'} showCancelButton 
- * @property {'false' | 'true'} buttonsStyling 
- * @property {'false' | 'true'} reverseButtons 
- * @property {'false' | 'true'} focusConfirm 
- * @property {'false' | 'true'} returnFocus 
- * @property {'false' | 'true'} focusDeny 
- * @property {'false' | 'true'} focusCancel 
- * @property {'false' | 'true'} showCloseButton 
- * @property {'false' | 'true'} showLoaderOnConfirm 
- * @property {'false' | 'true'} showLoaderOnDeny 
- * @property {'false' | 'true'} scrollbarPadding 
- * @property {'false' | 'true'} preConfirm 
- * @property {'false' | 'true'} preDeny 
- * @property {'false' | 'true'} returnInputValueOnDeny 
- * @property {'false' | 'true'} inputAutoFocus 
- * @property {'false' | 'true'} inputAutoTrim 
+ * @property {boolean} animation 
+ * @property {boolean} backdrop 
+ * @property {boolean} toast 
+ * @property {boolean} timerProgressBar 
+ * @property {boolean} heightAuto 
+ * @property {boolean} allowOutsideClick 
+ * @property {boolean} allowEscapeKey 
+ * @property {boolean} stopKeydownPropagation 
+ * @property {boolean} keydownListenerCapture 
+ * @property {boolean} showConfirmButton 
+ * @property {boolean} showDenyButton 
+ * @property {boolean} showCancelButton 
+ * @property {boolean} buttonsStyling 
+ * @property {boolean} reverseButtons 
+ * @property {boolean} focusConfirm 
+ * @property {boolean} returnFocus 
+ * @property {boolean} focusDeny 
+ * @property {boolean} focusCancel 
+ * @property {boolean} showCloseButton 
+ * @property {boolean} showLoaderOnConfirm 
+ * @property {boolean} showLoaderOnDeny 
+ * @property {boolean} scrollbarPadding 
+ * @property {boolean} preConfirm 
+ * @property {boolean} preDeny 
+ * @property {boolean} returnInputValueOnDeny 
+ * @property {boolean} inputAutoFocus 
+ * @property {boolean} inputAutoTrim 
  * 
  * 
  * 
@@ -262,7 +262,7 @@ class SA {
             toast,
             timerProgressBar,
             heightAuto,
-            allowOutsideClick,
+            allowOutsideClick ,
             allowEscapeKey,
             stopKeydownPropagation,
             keydownListenerCapture,
@@ -313,7 +313,7 @@ class SA {
 
         }
     ) {
-
+        
         this.title = title;
         this.titleText = titleText;
         this.html = html;
@@ -363,40 +363,41 @@ class SA {
         this.didDestroy = didDestroy;
         this.timer = timer;
         this.onEnd = onEnd
-        this.animation = (animation) ? (Boolean(animation)) : (undefined);
-        this.backdrop = (backdrop) ? (Boolean(backdrop)) : (undefined);
-        this.toast = (toast) ? (Boolean(toast)) : (undefined);
-        this.timerProgressBar = (timerProgressBar) ? (Boolean(timerProgressBar)) : (undefined);
-        this.heightAuto = (heightAuto) ? (Boolean(heightAuto)) : (undefined);
-        this.allowOutsideClick = (allowOutsideClick) ? (Boolean(allowOutsideClick)) : (undefined);
-        this.allowEscapeKey = (allowEscapeKey) ? (Boolean(allowEscapeKey)) : (undefined);
-        this.stopKeydownPropagation = (stopKeydownPropagation) ? (Boolean(stopKeydownPropagation)) : (undefined);
-        this.keydownListenerCapture = (keydownListenerCapture) ? (Boolean(keydownListenerCapture)) : (undefined);
-        this.showConfirmButton = (showConfirmButton) ? (Boolean(showConfirmButton)) : (undefined);
-        this.showDenyButton = (showDenyButton) ? (Boolean(showDenyButton)) : (undefined);
-        this.showCancelButton = (showCancelButton) ? (Boolean(showCancelButton)) : (undefined);
-        this.buttonsStyling = (buttonsStyling) ? (Boolean(buttonsStyling)) : (undefined);
-        this.reverseButtons = (reverseButtons) ? (Boolean(reverseButtons)) : (undefined);
-        this.focusConfirm = (focusConfirm) ? (Boolean(focusConfirm)) : (undefined);
-        this.returnFocus = (returnFocus) ? (Boolean(returnFocus)) : (undefined);
-        this.focusDeny = (focusDeny) ? (Boolean(focusDeny)) : (undefined);
-        this.focusCancel = (focusCancel) ? (Boolean(focusCancel)) : (undefined);
-        this.showCloseButton = (showCloseButton) ? (Boolean(showCloseButton)) : (undefined);
-        this.showLoaderOnConfirm = (showLoaderOnConfirm) ? (Boolean(showLoaderOnConfirm)) : (undefined);
-        this.showLoaderOnDeny = (showLoaderOnDeny) ? (Boolean(showLoaderOnDeny)) : (undefined);
-        this.scrollbarPadding = (scrollbarPadding) ? (Boolean(scrollbarPadding)) : (undefined);
-        this.preConfirm = (preConfirm) ? (Boolean(preConfirm)) : (undefined);
-        this.preDeny = (preDeny) ? (Boolean(preDeny)) : (undefined);
-        this.returnInputValueOnDeny = (returnInputValueOnDeny) ? (Boolean(returnInputValueOnDeny)) : (undefined);
-        this.inputAutoFocus = (inputAutoFocus) ? (Boolean(inputAutoFocus)) : (undefined);
-        this.inputAutoTrim = (inputAutoTrim) ? (Boolean(inputAutoTrim)) : (undefined);
+        this.animation = animation
+        this.backdrop = backdrop
+        this.toast = toast
+        this.timerProgressBar = timerProgressBar
+        this.heightAuto = heightAuto
+
+        this.allowOutsideClick = allowOutsideClick
+        this.allowEscapeKey = allowEscapeKey
+        this.stopKeydownPropagation = stopKeydownPropagation
+        this.keydownListenerCapture = keydownListenerCapture
+        this.showConfirmButton = showConfirmButton
+        this.showDenyButton = showDenyButton
+        this.showCancelButton = showCancelButton
+        this.buttonsStyling = buttonsStyling
+        this.reverseButtons = reverseButtons
+        this.focusConfirm = focusConfirm
+        this.returnFocus = returnFocus
+        this.focusDeny = focusDeny
+        this.focusCancel = focusCancel
+        this.showCloseButton = showCloseButton
+        this.showLoaderOnConfirm = showLoaderOnConfirm
+        this.showLoaderOnDeny = showLoaderOnDeny
+        this.scrollbarPadding = scrollbarPadding
+        this.preConfirm = preConfirm
+        this.preDeny = preDeny
+        this.returnInputValueOnDeny = returnInputValueOnDeny
+        this.inputAutoFocus = inputAutoFocus
+        this.inputAutoTrim = inputAutoTrim
         this.init()
     }
 
     init() {
 
         Object.keys(this).map(k => {
-            if (!this[k]) {
+            if (this[k] == undefined) {
                 delete this[k]
             }
         });
@@ -411,7 +412,7 @@ class SA {
     show() {
         if (this.target) {
             this.target = document.querySelector(this.target)
-        }
+        }        
 
         this.modal = Swal.fire({ ...this }).then((a)=>{this.onEnd(a)})
     }

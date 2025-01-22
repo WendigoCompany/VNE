@@ -39,8 +39,8 @@ const START_PROGRAM = (stade) => {
 
 let start_interval = setInterval(() => {
     if (public_url.length != 0 && Object.keys(USER_CONFIG).length != 0) {
-         START_PROGRAM(0);
-        // START_PROGRAM(2);
+        //  START_PROGRAM(0);
+        START_PROGRAM(2);
         clearInterval(start_interval)
     }
 }, 100);;
