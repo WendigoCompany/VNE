@@ -3,3 +3,7 @@
 3-- Error al crear la configuracion inicial
 4-- Error al cargar archivo de textos
 5-- Error al actualizar la configuracion de usuario
+6-- Error al leer el txt de resoluciones
+7-- Error al crear el txt de resoluciones
+
+10-- TimeOut leyendo algo

@@ -1,7 +1,22 @@
+
+
+const msj_errors = [
+    "Error creating save folder",
+    "Error reading user config",
+    "Error creating inicial user config",
+    "Error creating reading a lang file",
+    "Error creating updating user config",
+    "Error creating reading resolution db",
+    "Error creating creating resolution db",
+    "",
+    "",
+    "TimeOut reading a file",
+];
+
 const ERROR_HANDLE = (error) => {
     let msj = {
         icon: "error",
-        title: "ERROR 1",
+
         text: error.code,
 
         customClass: {
@@ -19,6 +34,10 @@ const ERROR_HANDLE = (error) => {
         case 3:
         case 4:
         case 5:
+        case 6:
+        case 7:
+        case 10:
+            msj.title = `ERROR ${icode} -- ${msj_errors[icode - 1]}`
             msj.onEnd = ({ isConfirmed }) => {
 
                 render.send("exit", error.icode)

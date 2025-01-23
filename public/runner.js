@@ -4,10 +4,20 @@ let USER_CONFIG = {
 
 };
 
+let RESOLUTIONS = "";
+let CHANGES = false;
+
+// SIRVE PARA PASARLE DATOS DE MANERA ASYNC A LOS MODALES , ENTRE OTROS
+let TEXT_HOLDER = {};
+// SIRVE PARA PASARLE DATOS DE MANERA ASYNC A LOS MODALES , ENTRE OTROS
+
+const GAME_NAME = "a date with Kurumi";
 
 setTimeout(() => {
     GET_PUBLIC()
     GET_USER_CONFIG()
+    GET_RESOLUTIONS()
+
 }, 10);
 
 

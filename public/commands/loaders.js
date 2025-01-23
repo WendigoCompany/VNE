@@ -1,28 +1,49 @@
+let TTK = 0;
+const MAX_TTK = (60 * 5 * 1000) / 10;
+
+
 const LOAD_INTRO = () => {
-    sessionStorage.setItem("stade","intro")
-    LOAD_HTML("intro", manifiest_intro , {onfinish: KILL_INTRO})
+    sessionStorage.setItem("stade", "intro")
+    LOAD_HTML("intro", manifiest_intro, { onfinish: KILL_INTRO })
 }
-
 const LOAD_DISCLAIM_1 = () => {
-    sessionStorage.setItem("stade","disclaim")
-    LOAD_HTML("disclaim", manifiest_disclaim_1 , {onfinish: KILL_DISCLAIM1})
+    sessionStorage.setItem("stade", "disclaim")
+    LOAD_HTML("disclaim", manifiest_disclaim_1, { onfinish: KILL_DISCLAIM1 })
 }
 
-const LOAD_MAIN_MENU= () => {
-    sessionStorage.setItem("stade","main_menu")
+const CHANGE_SONG = (song) => {
+    const music = document.getElementById("music").querySelector("audio");
+    music.src = `games/${GAME_NAME}/audio/music/${song}`;
+    music.volume = parseInt(USER_CONFIG.music) / 100;
+    music.play()
+    music.loop = true;
+}
 
-    LOAD_HTML("main_menu", manifiest_MainMenu , {onfinish: KILL_MAIN_MENU})
+const LOAD_MAIN_MENU = () => {
+    sessionStorage.setItem("stade", "main_menu")
+
+    LOAD_HTML("main_menu", manifiest_MainMenu, { onfinish: KILL_MAIN_MENU })
+
     let int = setInterval(() => {
         try {
-            SET_IMAGE_CONTAINER()
-            clearInterval(int)
+            SET_IMAGE_CONTAINER({ w: USER_CONFIG.resolution.split("x")[0], h: USER_CONFIG.resolution.split("x")[1] })
+
+            TTK = 0
             document.getElementById("mm-modal-exit").onclick = EXIT_FUNCTION
             document.getElementById("mm-modal-options").onclick = OPTION_MODAL
 
-            
+            clearInterval(int)
+            // setTimeout(() => {
+            //     CHANGE_SONG("music_menu.mp3")
+            // }, 500);
+
         } catch (error) {
-            console.log(error);
-               
+            TTK++
+            if (TTK >= MAX_TTK) {
+                TTK = 0
+                clearInterval(int)
+                ERROR_HANDLE({ icode: 10, code: 10 })
+            }
         }
     }, 10);;
 
@@ -31,15 +52,14 @@ const LOAD_MAIN_MENU= () => {
 
 }
 
-const SET_ROOT_SIZE=(size)=>{
+const SET_ROOT_SIZE = (size) => {
     document.getElementById("root").style.width = `${size.w}px`;
     document.getElementById("root").style.height = `${size.h}px`;
 }
 
 
-const SET_IMAGE_CONTAINER =()=>{
-    const [w,h] =  USER_CONFIG.resolution.split("x");
-    document.getElementsByClassName("image-container")[0].style.width = `${w}px`;
-    document.getElementsByClassName("image-container")[0].style.height = `${h}px`;
+const SET_IMAGE_CONTAINER = (size) => {
+    document.getElementsByClassName("image-container")[0].style.width = `${size.w}px`;
+    document.getElementsByClassName("image-container")[0].style.height = `${size.h}px`;
 }
 

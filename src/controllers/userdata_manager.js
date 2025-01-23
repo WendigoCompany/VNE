@@ -9,11 +9,15 @@ const CREATE_USERCONFIG = async () => {
         const config_base = {
             lang: "en",
             fullscreen: false,
-            resolution: "1920x1080"
-        };
+            resolution: "1920x1080",
+            aspect: "16:9",
+            music : 60,
+            sfx : 60
+ };
         await writeFile(path.join(TO_OUTSIDE + "/save/config.json"), JSON.stringify(config_base));
         return config_base
     } catch (error) {
+        await CREATE_LOG(3)
         return { bool: false, code: error, icode: 3 }
     }
 }
@@ -24,6 +28,7 @@ const CREATE_SAVE_FOLDER = async () => {
         return { bool: true, code: 200 }
     } catch (error) {
         if (error.errno != -4075) {
+            await CREATE_LOG(1)
             return { bool: false, code: error, icode: 1 }
         }
 
@@ -41,6 +46,7 @@ const READ_USERCONFIG = async () => {
                 return { data: JSON.parse(config.toString()), bool: 200 }
             } catch (error) {
                 if (error.errno != -4058) {
+                    await CREATE_LOG(2)
                     return { bool: false, code: error, icode: 2 }
                 }
                 const config = await CREATE_USERCONFIG()

@@ -196,7 +196,7 @@ const GET_PUBLIC = () => {
 }
 // OBTENIENDO LA RUTA COMPLETA DE PUBLIC
 
-// OBTENIENDO LA RUTA COMPLETA DE PUBLIC
+// OBTENIENDO LA CONFIGURACION DE USUARIO
 const GET_USER_CONFIG = () => {
     render.send("get-config")
 
@@ -209,8 +209,35 @@ const GET_USER_CONFIG = () => {
         render.send("update-window-fs", config.data.fullscreen)
 
         USER_CONFIG = config.data;
-        sessionStorage.setItem("uconfig", config.data)
+        sessionStorage.setItem("uconfig", JSON.stringify(config.data))
         SET_ROOT_SIZE({ w: parseInt(config.data.resolution.split("x")[0]) - 10, h: parseInt(config.data.resolution.split("x")[1]) - 10 })
     })
 }
-// OBTENIENDO LA RUTA COMPLETA DE PUBLIC
+// OBTENIENDO LA CONFIGURACION DE USUARIO
+
+// OBTENIENDO LA LISTA DE RESOLUCIONES
+const GET_RESOLUTIONS = () => {
+    render.send("get-resolutions")
+
+    render.once("re-get-resolutions", (e, data) => {
+        if (!data.bool) {
+            ERROR_HANDLE(data)
+        }
+        RESOLUTIONS = data.data;
+    })
+
+
+}
+
+
+const GET_LANG_TEXT = (vartxt,tag) => {
+    render.send("load-txt",tag)
+    render.once("re-load-txt", (e, data) => {
+        if (!data) {
+            ERROR_HANDLE({ icode: 4, code: 4 })
+        }
+
+        TEXT_HOLDER[vartxt] = data;
+    }) 
+}
+// OBTENIENDO LA LISTA DE RESOLUCIONES

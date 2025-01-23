@@ -1,0 +1,13 @@
+{
+    "en": {
+        "modal-display": "DISPLAY",
+        "modal-audio": "AUDIO",
+        "modal-text": "TEXT"
+    },
+    "es": {
+        "modal-display": "PANTALLA",
+        "modal-audio": "AUDIO",
+        "modal-text": "TEXTO"
+  
+    }
+}

@@ -7,6 +7,7 @@ const { CREATE_LOG, INTERNAL_LOG } = require('./controllers/log');
 
 const path = require('path');
 const { TO_PUBLIC, TO_ROOT } = require('../rooting');
+const { CREATE_RESOLUTION_LIST } = require('./controllers/resolution');
 
 
 
@@ -34,6 +35,26 @@ ipcMain.on("load-html", async (e, tag) => {
     }
 })
 // CARGA LA PLANTILLA .HTML DE UNA PAGINA Y LA ENVIA COMO PLAIN-TEXT
+
+// CARGA SOLO UN ARCHIVO DE LA CARPETA TXT
+ipcMain.on("load-txt", async (e, tag) => {
+
+    try {
+        let txt=false;
+        try {
+            txt = JSON.parse((await readFile(path.join(TO_ROOT + "/text/" + tag + ".json"))).toString())
+        } catch (error) {
+            if (error.errno != -4058) {
+                await CREATE_LOG(4, 1)
+            }
+        }
+
+        e.reply("re-load-txt", txt)
+    } catch (error) {
+        INTERNAL_LOG(JSON.stringify(error))
+    }
+})
+// CARGA SOLO UN ARCHIVO DE LA CARPETA TXT
 
 // ENVIA LA RUTA COMPLETA DEL FOLDER PUBLIC
 ipcMain.on("get-public", async (e) => {
@@ -77,6 +98,15 @@ ipcMain.on("change-fullscreen", (e, size) => {
 // CAMBIAR FULL SCREEN
 
 
+
+
+ipcMain.on("get-resolutions", async (e) => {
+    const resp = await CREATE_RESOLUTION_LIST();
+    e.reply("re-get-resolutions", resp)
+
+})
+// CAMBIAR FULL SCREEN
+
 //********************************CONFIG EVENTS --- END**************************************
 
 
@@ -89,7 +119,6 @@ ipcMain.on("exit", async (e, err) => {
 
 })
 // CIERRA EL PROGRAMA
-
 
 
 

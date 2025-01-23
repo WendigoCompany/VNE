@@ -11,6 +11,13 @@ const LINK_TO = (origin, destinyID) => {
         if (elements.length == 0 && sessionStorage.getItem("stade") == origin) {
             START_PROGRAM(destinyID)
             clearInterval(interval_conector)
+            TTK=0
+        }
+        TTK++
+        if (TTK >= MAX_TTK) {
+            clearInterval(int)
+            TTK = 0
+            ERROR_HANDLE({ icode: 10, code: 10 })
         }
         // START_PROGRAM(1) 
     }, 200);
