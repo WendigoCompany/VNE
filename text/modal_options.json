@@ -1,13 +1,24 @@
 {
-    "en": {
-        "modal-display": "DISPLAY",
-        "modal-audio": "AUDIO",
-        "modal-text": "TEXT"
-    },
-    "es": {
-        "modal-display": "PANTALLA",
-        "modal-audio": "AUDIO",
-        "modal-text": "TEXTO"
-  
-    }
+  "en": {
+    "modal-display": "DISPLAY",
+    "modal-audio": "AUDIO",
+    "modal-text": "TEXT",
+    "modal-resolution": "SCREEN RESOLUTION",
+    "modal-fs": "FULLSCREEN",
+    "modal-aspect": "ASPECT RATIO",
+    "modal-fs-y": "YES",
+    "modal-fs-n": "NO",
+    "modal-fast-confirm": "REVERT CHANGES?"
+  },
+  "es": {
+    "modal-display": "PANTALLA",
+    "modal-audio": "AUDIO",
+    "modal-text": "TEXTO",
+    "modal-resolution": "RESOLUCIÓN",
+    "modal-fs": "PANTALLA COMPLETA",
+    "modal-aspect": "RELACIÓN DE ASPECTO",
+    "modal-fs-y": "SI",
+    "modal-fs-n": "NO",
+    "modal-fast-confirm": "¿REVERTIR  CAMBIOS?"
+  }
 }

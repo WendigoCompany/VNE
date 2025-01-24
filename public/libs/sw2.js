@@ -414,7 +414,8 @@ class SA {
             this.target = document.querySelector(this.target)
         }        
 
-        this.modal = Swal.fire({ ...this }).then((a)=>{this.onEnd(a)})
+        this.modal = Swal.fire({ ...this })
+        this.modal.then((a)=>{this.onEnd(a)})
     }
 }
 

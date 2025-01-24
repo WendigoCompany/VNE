@@ -10,6 +10,10 @@ const { CHANGE_RESOLUTION } = require('./src/controllers/screen_functions');
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
+  
+  const ratio = screen.getPrimaryDisplay().scaleFactor
+
+  
   const mainWindow = new BrowserWindow({
     width: 100,
     height: 100,
@@ -60,7 +64,7 @@ function createWindow() {
 
     size.w = parseInt(size.w);
     size.h = parseInt(size.h);
-    mainWindow.setSize(size.w, size.h)
+    mainWindow.setSize(size.w , size.h )
     mainWindow.setBounds({ x: (width - size.w) / 2, y: (height - size.h) / 2, width: size.w, height: size.h })
   });
 

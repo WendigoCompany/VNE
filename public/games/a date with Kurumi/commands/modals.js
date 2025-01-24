@@ -8,7 +8,7 @@ const OPTION_MODAL_TEXT = () => {
     alert("OPTION_MODAL_TEXT");
 };
 
-const CHANGE_FULLSCREEN = (value, mactual) => {
+const CHANGE_FULLSCREEN = (value, mactual, recall = false) => {
     USER_CONFIG.fullscreen = value;
 
     render.send("update-window-fs", { fullscreen: value, size: USER_CONFIG.resolution });
@@ -25,8 +25,10 @@ const CHANGE_FULLSCREEN = (value, mactual) => {
         SET_IMAGE_CONTAINER({ w: USER_CONFIG.resolution.split("x")[0], h: USER_CONFIG.resolution.split("x")[1] });
     });
 
+    if (!recall) {
+        CONFIRM_FAST_CHANGE(mactual, "fs")
+    }
 
-    CONFIRM_FAST_CHANGE(mactual)
 };
 
 
@@ -55,35 +57,32 @@ const OPTION_MODAL_DISPLAY = (mactual) => {
 
         aspect_selector.innerHTML = optionscreated;
 
-        UPDATE_RESOLUTION_SELECTOR();
+        UPDATE_RESOLUTION_SELECTOR(mactual);
 
         aspect_selector.onchange = (e) => {
             USER_CONFIG.aspect = e.target.value;
-            UPDATE_RESOLUTION_SELECTOR();
+            UPDATE_RESOLUTION_SELECTOR(mactual);
         };
     }
 
 
-    if (USER_CONFIG.fullscreen) {
-        document.getElementById("en-fullscreen").disabled = true;
-    } else {
-        document.getElementById("dis-fullscreen").disabled = true;
-    }
+    // if (USER_CONFIG.fullscreen) {
+    //     document.getElementById("en-fullscreen").disabled = true;
+    // } else {
+    //     document.getElementById("dis-fullscreen").disabled = true;
+    // }
 
     document.getElementById("en-fullscreen").onclick = () => { CHANGE_FULLSCREEN(true, mactual); }
     document.getElementById("dis-fullscreen").onclick = () => { CHANGE_FULLSCREEN(false, mactual); }
 
 
 
-    // document.getElementsByName("fullscreen")[0].onchange = (e) => {
-    //     CHANGE_FULLSCREEN(true);
-    // };
-    // document.getElementsByName("fullscreen")[1].onchange = (e) => {
-    //     CHANGE_FULLSCREEN(false);
-    // };
+
 };
 
-const UPDATE_RESOLUTION_SELECTOR = () => {
+
+
+const UPDATE_RESOLUTION_SELECTOR = (mactual) => {
     const resolution_selector = document.getElementById("resolution");
     const options = [];
     RESOLUTIONS.map((res) => {
@@ -132,6 +131,8 @@ const UPDATE_RESOLUTION_SELECTOR = () => {
     render.send("update-window-size", newSize);
     SET_ROOT_SIZE(newSize);
     SET_IMAGE_CONTAINER(newSize);
+    
+
 
     resolution_selector.onchange = (e) => {
         USER_CONFIG.resolution = e.target.value;
@@ -142,7 +143,12 @@ const UPDATE_RESOLUTION_SELECTOR = () => {
         render.send("update-window-size", newSize);
         SET_ROOT_SIZE(newSize);
         SET_IMAGE_CONTAINER(newSize);
+        
+        CONFIRM_FAST_CHANGE(mactual,"reso")
     };
+
+
+
 };
 
 const OPTION_MODAL = (e, mactual = "display") => {
@@ -187,14 +193,14 @@ const OPTION_MODAL = (e, mactual = "display") => {
         
         
                <div>
-                                    <div><h3>PANTALLA COMPLETA</h3></div>
-                                    <button id="en-fullscreen" class="">SI</button>
-                                   <button id="dis-fullscreen" class="">NO</button>
+                                    <div><h3  data-text-elem="" data-txt-origin="modal-resolution" >${PROCESS_TEXT("modal-resolution", TEXT_HOLDER["modals"])}</h3></div>
+                                    <button id="en-fullscreen" ${USER_CONFIG.fullscreen ? "disabled" :""} data-text-elem="" data-txt-origin="modal-fs-y" class="">${PROCESS_TEXT("modal-fs-y", TEXT_HOLDER["modals"])}</button>
+                                   <button id="dis-fullscreen" ${USER_CONFIG.fullscreen ? "" :"disabled"} data-text-elem="" data-txt-origin="modal-fs-n" class="">${PROCESS_TEXT("modal-fs-n", TEXT_HOLDER["modals"])}</button>
                                     <div>
-                                        <h3>RESOLUCION</h3>
+                                        <h3  data-text-elem="" data-txt-origin="modal-fs">${PROCESS_TEXT("modal-fs", TEXT_HOLDER["modals"])}</h3>
                                         <select name="resolution" id="resolution" ${USER_CONFIG.fullscreen ? "disabled" : ""}></select>
                                         <br/>
-                                        <h3>RELACION ASPECTO</h3>
+                                        <h3  data-text-elem="" data-txt-origin="modal-aspect" >${PROCESS_TEXT("modal-aspect", TEXT_HOLDER["modals"])}</h3>
                                         <select name="aspect" id="aspect" ${USER_CONFIG.fullscreen ? "disabled" : ""}></select>
                                     </div>
                                 </div>
@@ -249,14 +255,69 @@ const OPTION_MODAL = (e, mactual = "display") => {
 
 };
 
+const CONFIRM_FAST_CHANGE = (origin, change) => {
+    let timer = 2;
+    let saved = false
+    const modal = new SA({
+        title: PROCESS_TEXT("modal-fast-confirm", TEXT_HOLDER["modals"]) + "\n" + timer,
+        showConfirmButton: true,
+        showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: true,
 
-const CONFIRM_FAST_CHANGE = (origin) => {
-    new SA({
-        title: "C",
-        onEnd: () => {
+        onEnd: (e) => {
+            if (e.isConfirmed) {
+                saved = true
+            }
+
+            switch (change) {
+                case "fs":
+                    if (!saved) {
+                        USER_CONFIG.fullscreen = JSON.parse(sessionStorage.getItem("uconfig")).fullscreen;
+                        CHANGE_FULLSCREEN(JSON.parse(sessionStorage.getItem("uconfig")).fullscreen, origin, true)
+
+
+                    }
+                    break;
+                case "reso":
+                    if (!saved) {
+                        const conifg = JSON.parse(sessionStorage.getItem("uconfig"));
+                        USER_CONFIG.resolution = conifg.resolution;
+                        USER_CONFIG.aspect = conifg.aspect;
+
+                        const newSize = {
+                            w: USER_CONFIG.resolution.split("x")[0],
+                            h: USER_CONFIG.resolution.split("x")[1],
+                        };
+                        render.send("update-window-size", newSize);
+                        SET_ROOT_SIZE(newSize);
+                        SET_IMAGE_CONTAINER(newSize);
+
+                    }
+                    break;
+                default:
+                    break;
+            }
             OPTION_MODAL(origin)
+            clearInterval(int)
+            // OPTION_MODAL(origin)
         }
-    }).show()
+    })
+    modal.show()
+
+    let int = setInterval(() => {
+        timer--
+        document.getElementById("swal2-title").innerHTML = PROCESS_TEXT("modal-fast-confirm", TEXT_HOLDER["modals"]) + "<br/>" + timer;
+
+
+        if (timer == 0) {
+            modal.close()
+        }
+
+    }, 1000);;
+
+
+
 }
 
 const CONFIRM_CHANGE = () => { }

@@ -2,6 +2,7 @@ const { TO_OUTSIDE } = require("../../rooting");
 const { readFile, readdir, mkdir, writeFile } = require("../forldermanager");
 const path = require('path');
 const { CREATE_LOG } = require("./log");
+const { screen } = require("electron");
 
 
 const CREATE_USERCONFIG = async () => {
@@ -12,7 +13,8 @@ const CREATE_USERCONFIG = async () => {
             resolution: "1920x1080",
             aspect: "16:9",
             music : 60,
-            sfx : 60
+            sfx : 60,
+            factor : screen.getPrimaryDisplay().scaleFactor
  };
         await writeFile(path.join(TO_OUTSIDE + "/save/config.json"), JSON.stringify(config_base));
         return config_base
