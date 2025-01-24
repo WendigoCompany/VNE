@@ -10,10 +10,10 @@ const { CHANGE_RESOLUTION } = require('./src/controllers/screen_functions');
 
 function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
-  
+
   const ratio = screen.getPrimaryDisplay().scaleFactor
 
-  
+
   const mainWindow = new BrowserWindow({
     width: 100,
     height: 100,
@@ -41,7 +41,7 @@ function createWindow() {
   ipcMain.on('update-window-fs', (e, fscreen) => {
 
     let size = {};
-    
+
     if (fscreen.fullscreen) {
       size = screen.getPrimaryDisplay().size;
       mainWindow.setSize(size.width, size.height)
@@ -61,11 +61,23 @@ function createWindow() {
 
 
   ipcMain.on('update-window-size', (e, size) => {
-
     size.w = parseInt(size.w);
     size.h = parseInt(size.h);
-    mainWindow.setSize(size.w , size.h )
-    mainWindow.setBounds({ x: (width - size.w) / 2, y: (height - size.h) / 2, width: size.w, height: size.h })
+    const max = { w: width * ratio, h: height * ratio };
+    let bounds = { x: 0, y: 0 };
+
+    if (size.w == max.w && size.h == max.h) {
+      size.w = width;
+      size.h = height;
+    } else {
+      bounds = { x: (width - size.w) / 2, y: (height - size.h) / 2, width: size.w, height: size.h };
+    }
+    mainWindow.setBounds(bounds)
+    mainWindow.setSize(size.w, size.h)
+
+    e.reply("re-update-window-size",size)
+
+    
   });
 
   ipcMain.on('send-console-log', (e, txt) => {

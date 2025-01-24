@@ -45,7 +45,6 @@ const FIX_SRC = (src) => {
 
 
 const PROCESS_TEXT = (txt, txtfile = {}) => {
-    console.log(USER_CONFIG);
 
     if (!txt.includes("@username@")) {
         txtfile = txtfile[USER_CONFIG.lang]
@@ -134,7 +133,6 @@ const LOAD_HTML = (tag, manifiest, { onfinish = () => { } }) => {
 
             timer += man.entry
             setTimeout(() => {
-                console.log(man);
 
                 if (Array.isArray(ORDENATED[man.order])) {
                     try {

@@ -44,7 +44,7 @@
 }
 
 .mm-modal-td-options:nth-child(1) {
-    
+
     width: 20%;
 }
 
@@ -55,16 +55,109 @@
 
 
 
-.mm-modal-td-options:nth-child(1) label{
-    color: #878787;
+.mm-modal-td-options:nth-child(1) label {
+    color: #3677bd;
     font-size: 1.8rem;
     cursor: pointer;
     transition: color .3s;
 }
-.mm-modal-td-options:nth-child(1) label:hover{
+
+.fs-stade{
+    border: 2px solid #284432;
+    width: 2rem;
+    display: inline-block;
+    height: 2rem;
+    margin-left: 5%;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+
+
+.fs-stade:hover{
+    background-color: #afffcb;
+}
+
+.fs-disabled{
+    background-color: transparent;
+}
+
+
+.fs-enabled{
+    background-color: #284432;
+
+}
+
+.mm-modal-td-options:nth-child(1) label:hover {
     color: rgba(217, 0, 0, 0.695);
 }
 
-.mm-modal-td-options:nth-child(2) h3{
+.mm-modal-td-options:nth-child(2) label {
+    color: #3677bdb1;
     font-size: 2.1rem;
+
 }
+
+
+
+.swal2-actions{
+    width: 100%;
+}
+
+.mm-modal-btn{
+    background-color: transparent;
+    color: #3677bd;
+    border: 1px solid #3677bd;
+    font-size: 1.3rem;
+}
+
+.mm-modal-btn-option{
+    width: 25%;
+    transition: border .3s, color .3s;
+}
+
+.mm-modal-btn-option:hover{
+    border: 1px solid rgba(217, 0, 0, 0.695);
+    color: rgba(217, 0, 0, 0.695);
+}
+
+.resolution-selector{
+    background-color: transparent;
+    border: 1px solid #3677bd;
+    color: #3677bd;
+    font-size: 1.3rem;
+    width: 70%;
+    padding: 1.5% 0%;
+    text-align: center;
+    transition: background-color .3s, color .3s;
+    cursor: pointer;
+}
+.resolution-selector option{
+    background-color: #3677bd;
+    color: black;
+}
+
+.resolution-selector:focus{
+    background-color: #3677bd;
+    color: black;
+}
+
+.resolution-selector:hover{
+    background-color: #3677bd;
+    color: black;
+}
+
+/* .mm-modal-denyButton {
+
+}
+
+.mm-modal-denyButton-options {}
+
+.mm-modal-cancelButton {}
+
+.mm-modal-cancelButton-options {}
+
+.mm-modal-confirmButton {}
+
+.mm-modal-confirmButton-options {} */

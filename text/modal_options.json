@@ -8,7 +8,10 @@
     "modal-aspect": "ASPECT RATIO",
     "modal-fs-y": "YES",
     "modal-fs-n": "NO",
-    "modal-fast-confirm": "REVERT CHANGES?"
+    "modal-fast-confirm": "REVERT CHANGES?",
+    "modal-option-btn-confirm": "CLOSE",
+    "modal-option-btn-save": "SAVE",
+    "modal-option-btn-cancel": "REVERT"
   },
   "es": {
     "modal-display": "PANTALLA",
@@ -19,6 +22,9 @@
     "modal-aspect": "RELACIÓN DE ASPECTO",
     "modal-fs-y": "SI",
     "modal-fs-n": "NO",
-    "modal-fast-confirm": "¿REVERTIR  CAMBIOS?"
+    "modal-fast-confirm": "¿REVERTIR  CAMBIOS?",
+    "modal-option-btn-confirm": "CERRAR",
+    "modal-option-btn-save": "GUARDAR",
+    "modal-option-btn-cancel": "REVERTIR"
   }
 }

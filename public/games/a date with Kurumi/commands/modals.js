@@ -31,57 +31,6 @@ const CHANGE_FULLSCREEN = (value, mactual, recall = false) => {
 
 };
 
-
-
-
-
-const OPTION_MODAL_DISPLAY = (mactual) => {
-
-    if (!USER_CONFIG.fullscreen) {
-        const aspect_selector = document.getElementById("aspect");
-
-        const options = [];
-
-        RESOLUTIONS.map((res) => {
-            if (options.indexOf(res.aspect) == -1) {
-                options.push(res.aspect);
-            }
-        });
-
-        let optionscreated = "";
-
-        options.map((asp) => {
-            optionscreated += `<option value="${asp}" ${USER_CONFIG.aspect == asp ? "selected" : ""
-                }>${asp}</option>`;
-        });
-
-        aspect_selector.innerHTML = optionscreated;
-
-        UPDATE_RESOLUTION_SELECTOR(mactual);
-
-        aspect_selector.onchange = (e) => {
-            USER_CONFIG.aspect = e.target.value;
-            UPDATE_RESOLUTION_SELECTOR(mactual);
-        };
-    }
-
-
-    // if (USER_CONFIG.fullscreen) {
-    //     document.getElementById("en-fullscreen").disabled = true;
-    // } else {
-    //     document.getElementById("dis-fullscreen").disabled = true;
-    // }
-
-    document.getElementById("en-fullscreen").onclick = () => { CHANGE_FULLSCREEN(true, mactual); }
-    document.getElementById("dis-fullscreen").onclick = () => { CHANGE_FULLSCREEN(false, mactual); }
-
-
-
-
-};
-
-
-
 const UPDATE_RESOLUTION_SELECTOR = (mactual) => {
     const resolution_selector = document.getElementById("resolution");
     const options = [];
@@ -131,7 +80,7 @@ const UPDATE_RESOLUTION_SELECTOR = (mactual) => {
     render.send("update-window-size", newSize);
     SET_ROOT_SIZE(newSize);
     SET_IMAGE_CONTAINER(newSize);
-    
+
 
 
     resolution_selector.onchange = (e) => {
@@ -140,18 +89,115 @@ const UPDATE_RESOLUTION_SELECTOR = (mactual) => {
             w: e.target.value.split("x")[0],
             h: e.target.value.split("x")[1],
         };
-        render.send("update-window-size", newSize);
-        SET_ROOT_SIZE(newSize);
-        SET_IMAGE_CONTAINER(newSize);
-        
-        CONFIRM_FAST_CHANGE(mactual,"reso")
+        render.send("update-window-size", newSize); +
+            render.once("re-update-window-size", (e, size) => {
+                SET_ROOT_SIZE(size);
+                SET_IMAGE_CONTAINER(size);
+
+            });
+
+
+        CONFIRM_FAST_CHANGE(mactual, "reso")
     };
 
 
 
 };
 
+const OPTION_MODAL_DISPLAY = (mactual) => {
+    const option_ui = `
+        <div><label  data-text-elem="" data-txt-origin="modal-resolution" >${PROCESS_TEXT("modal-resolution", TEXT_HOLDER["modals"])}</label>
+        <button id="en-fullscreen" data-text-elem="" data-txt-origin="modal-fs-y" class="${USER_CONFIG.fullscreen ? "fs-enabled" : "fs-disabled"} fs-stade"></button>
+        </div>
+                       ${GET_SEPARATOR(1)}
+                <div>
+                    <label  data-text-elem="" data-txt-origin="modal-fs">${PROCESS_TEXT("modal-fs", TEXT_HOLDER["modals"])}</label>
+                         <br/>
+                         ${GET_SEPARATOR(1)}
+                    <select name="resolution" id="resolution" ${USER_CONFIG.fullscreen ? "disabled" : ""} class="resolution-selector"></select>
+                    <br/>
+                    <label  data-text-elem="" data-txt-origin="modal-aspect" >${PROCESS_TEXT("modal-aspect", TEXT_HOLDER["modals"])}</label>
+                         <br/>
+                         ${GET_SEPARATOR(1)}
+                    <select name="aspect" id="aspect" ${USER_CONFIG.fullscreen ? "disabled" : ""} class="resolution-selector"></select>
+                </div>
+            </div>
+
+
+
+            
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    `;
+
+    document.getElementById("option-ui").innerHTML = option_ui;
+
+    if (!USER_CONFIG.fullscreen) {
+
+
+
+
+        const aspect_selector = document.getElementById("aspect");
+
+
+
+        const options = [];
+
+        RESOLUTIONS.map((res) => {
+            if (options.indexOf(res.aspect) == -1) {
+                options.push(res.aspect);
+            }
+        });
+
+        let optionscreated = "";
+
+        options.map((asp) => {
+            optionscreated += `<option value="${asp}" ${USER_CONFIG.aspect == asp ? "selected" : ""
+                }>${asp}</option>`;
+        });
+
+        aspect_selector.innerHTML = optionscreated;
+
+        UPDATE_RESOLUTION_SELECTOR(mactual);
+
+        aspect_selector.onchange = (e) => {
+            USER_CONFIG.aspect = e.target.value;
+            UPDATE_RESOLUTION_SELECTOR(mactual);
+        };
+    }
+    document.getElementById("en-fullscreen").onclick = () => { CHANGE_FULLSCREEN(!USER_CONFIG.fullscreen, mactual); }
+    // document.getElementById("dis-fullscreen").onclick = () => { CHANGE_FULLSCREEN(false, mactual); }
+
+
+
+
+
+
+
+
+};
+
+
+// Primary: #0d6efd (Color Azul)
+
+// Secondary: #6c757d (Color Gris)
+
+// Success: #198754 (Color Verde)
+
+// Danger: #dc3545 (Color Rojo)
+
+// Warning: #ffc107 (Color Amarillo)
+
+// Info: #0dcaf0 (Color Cian)
+
+// Light: #f8f9fa (Color Blanco)
+
+// Dark: #212529 (Color Negro)
+
 const OPTION_MODAL = (e, mactual = "display") => {
+
 
     GET_LANG_TEXT("modals", "modal_options")
 
@@ -160,8 +206,12 @@ const OPTION_MODAL = (e, mactual = "display") => {
             new SA({
                 showCancelButton: true,
                 showConfirmButton: true,
-                showCloseButton: true,
+                showDenyButton: true,
+                confirmButtonText: PROCESS_TEXT("modal-option-btn-confirm", TEXT_HOLDER["modals"]),
+                denyButtonText: PROCESS_TEXT("modal-option-btn-save", TEXT_HOLDER["modals"]),
+                cancelButtonText: PROCESS_TEXT("modal-option-btn-cancel", TEXT_HOLDER["modals"]),
                 allowOutsideClick: false,
+
                 onEnd: (e) => {
                     if (e.dismiss == "esc") {
                     }
@@ -186,38 +236,22 @@ const OPTION_MODAL = (e, mactual = "display") => {
                             <br/>
                             <br/>
                             <br/>
-                            <br/>checked
+                            <br/>
                         </td>
                         <td class="mm-modal-td-options Poppins-Regular">
                        
+                
         
-        
-               <div>
-                                    <div><h3  data-text-elem="" data-txt-origin="modal-resolution" >${PROCESS_TEXT("modal-resolution", TEXT_HOLDER["modals"])}</h3></div>
-                                    <button id="en-fullscreen" ${USER_CONFIG.fullscreen ? "disabled" :""} data-text-elem="" data-txt-origin="modal-fs-y" class="">${PROCESS_TEXT("modal-fs-y", TEXT_HOLDER["modals"])}</button>
-                                   <button id="dis-fullscreen" ${USER_CONFIG.fullscreen ? "" :"disabled"} data-text-elem="" data-txt-origin="modal-fs-n" class="">${PROCESS_TEXT("modal-fs-n", TEXT_HOLDER["modals"])}</button>
-                                    <div>
-                                        <h3  data-text-elem="" data-txt-origin="modal-fs">${PROCESS_TEXT("modal-fs", TEXT_HOLDER["modals"])}</h3>
-                                        <select name="resolution" id="resolution" ${USER_CONFIG.fullscreen ? "disabled" : ""}></select>
-                                        <br/>
-                                        <h3  data-text-elem="" data-txt-origin="modal-aspect" >${PROCESS_TEXT("modal-aspect", TEXT_HOLDER["modals"])}</h3>
-                                        <select name="aspect" id="aspect" ${USER_CONFIG.fullscreen ? "disabled" : ""}></select>
-                                    </div>
-                                </div>
-        
-        
-        
-                                
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+               <div id="option-ui">
+                    
+               </div>
                 `,
                 customClass: {
                     popup: "mm-modal-popup  mm-modal-popup-options ",
-                    cancelButton: "mm-modal-cancelButton  mm-modal-cancelButton-options",
-                    confirmButton: "mm-modal-confirmButton  mm-modal-confirmButton-options",
+                    cancelButton: "mm-modal-cancelButton  mm-modal-cancelButton-options Poppins-Regular mm-modal-btn mm-modal-btn-option",
+                    confirmButton: "mm-modal-confirmButton  mm-modal-confirmButton-options Poppins-Regular mm-modal-btn mm-modal-btn-option",
+                    denyButton: "mm-modal-denyButton  mm-modal-denyButton-options Poppins-Regular mm-modal-btn mm-modal-btn-option",
+
                 },
             }).show();
 
@@ -234,6 +268,8 @@ const OPTION_MODAL = (e, mactual = "display") => {
 
             switch (mactual) {
                 case "display":
+                    console.log(1);
+
                     OPTION_MODAL_DISPLAY(mactual);
                     break;
 
@@ -256,7 +292,7 @@ const OPTION_MODAL = (e, mactual = "display") => {
 };
 
 const CONFIRM_FAST_CHANGE = (origin, change) => {
-    let timer = 2;
+    let timer = 15;
     let saved = false
     const modal = new SA({
         title: PROCESS_TEXT("modal-fast-confirm", TEXT_HOLDER["modals"]) + "\n" + timer,
@@ -269,6 +305,8 @@ const CONFIRM_FAST_CHANGE = (origin, change) => {
             if (e.isConfirmed) {
                 saved = true
             }
+
+
 
             switch (change) {
                 case "fs":
@@ -298,7 +336,7 @@ const CONFIRM_FAST_CHANGE = (origin, change) => {
                 default:
                     break;
             }
-            OPTION_MODAL(origin)
+            OPTION_MODAL("", origin)
             clearInterval(int)
             // OPTION_MODAL(origin)
         }

@@ -190,9 +190,12 @@
  * @property {string} loader
  * @property {string} footer
  * @property {string} timerProgressBar
- * 
-
+ * @property {string} confirmButtonText   
+ * @property {string} denyButtonText
+ * @property {string} cancelButtonText   
  */
+
+
 
 
 
