@@ -1,0 +1,1 @@
+const LANGS =[{l:"es",t : "ESPAÑOL"}, {l: "en", t : "ENGLISH"}];

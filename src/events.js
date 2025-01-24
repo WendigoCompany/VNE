@@ -81,23 +81,9 @@ ipcMain.on("update-config", async (e, config) => {
     e.reply("re-update-config", resp)
 
 })
+
+
 // ACTUALIZAR CONFIGURACION
-
-
-// CAMBIA LA RESOLUCION DE LA SCREEN
-ipcMain.on("change-resolution", (e, size) => {
-
-})
-// CAMBIA LA RESOLUCION DE LA SCREEN
-
-
-// CAMBIAR FULL SCREEN
-ipcMain.on("change-fullscreen", (e, size) => {
-
-})
-// CAMBIAR FULL SCREEN
-
-
 
 
 ipcMain.on("get-resolutions", async (e) => {

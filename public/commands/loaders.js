@@ -11,10 +11,15 @@ const LOAD_DISCLAIM_1 = () => {
     LOAD_HTML("disclaim", manifiest_disclaim_1, { onfinish: KILL_DISCLAIM1 })
 }
 
-const CHANGE_SONG = (song) => {
+const CHANGE_MUSIC_VOLUME =()=>{
+    const music = document.getElementById("music").querySelector("audio");
+    music.volume = parseInt(USER_CONFIG.music) / 100;
+}
+
+const SET_MUSIC = (song) => {
     const music = document.getElementById("music").querySelector("audio");
     music.src = `games/${GAME_NAME}/audio/music/${song}`;
-    music.volume = parseInt(USER_CONFIG.music) / 100;
+    CHANGE_MUSIC_VOLUME()
     music.play()
     music.loop = true;
 }
@@ -26,7 +31,11 @@ const LOAD_MAIN_MENU = () => {
 
     let int = setInterval(() => {
         try {
-            SET_IMAGE_CONTAINER({ w: USER_CONFIG.resolution.split("x")[0], h: USER_CONFIG.resolution.split("x")[1] })
+            if(!USER_CONFIG.fullscreen){
+                SET_IMAGE_CONTAINER({ w: USER_CONFIG.resolution.split("x")[0], h: USER_CONFIG.resolution.split("x")[1] })
+            }else{
+                SET_IMAGE_CONTAINER(USER_CONFIG.fullscreen_params)
+            }
 
             TTK = 0
             document.getElementById("mm-modal-exit").onclick = EXIT_FUNCTION
@@ -34,7 +43,7 @@ const LOAD_MAIN_MENU = () => {
 
             clearInterval(int)
             // setTimeout(() => {
-            //     CHANGE_SONG("music_menu.mp3")
+            //     SET_MUSIC("music_menu.mp3")
             // }, 500);
 
         } catch (error) {

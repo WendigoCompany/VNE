@@ -4,6 +4,7 @@ const path = require('path');
 const { CREATE_LOG } = require("./log");
 const { screen } = require("electron");
 
+let USER_CONFIG = {};
 
 const CREATE_USERCONFIG = async () => {
     try {
@@ -12,11 +13,13 @@ const CREATE_USERCONFIG = async () => {
             fullscreen: false,
             resolution: "1920x1080",
             aspect: "16:9",
-            music : 60,
-            sfx : 60,
-            factor : screen.getPrimaryDisplay().scaleFactor
- };
+            music: 60,
+            sfx: 60,
+            factor: screen.getPrimaryDisplay().scaleFactor,
+            fullscreen_params: {w: screen.getPrimaryDisplay().size.width,h: screen.getPrimaryDisplay().size.height },
+        };
         await writeFile(path.join(TO_OUTSIDE + "/save/config.json"), JSON.stringify(config_base));
+        
         return config_base
     } catch (error) {
         await CREATE_LOG(3)
@@ -52,6 +55,7 @@ const READ_USERCONFIG = async () => {
                     return { bool: false, code: error, icode: 2 }
                 }
                 const config = await CREATE_USERCONFIG()
+                USER_CONFIG =config;
                 return { data: config, bool: 200 }
             }
 
@@ -59,6 +63,7 @@ const READ_USERCONFIG = async () => {
 
         case 201:
             const config = await CREATE_USERCONFIG()
+            USER_CONFIG =config;
             return { data: config, bool: 200 }
 
         default:
@@ -66,10 +71,11 @@ const READ_USERCONFIG = async () => {
     }
 }
 
-const UPDATE_CONFIG = async(config)=>{
+const UPDATE_CONFIG = async (config) => {
     try {
         await writeFile(path.join(TO_OUTSIDE + "/save/config.json"), JSON.stringify(config));
-        return { bool: 200}
+        USER_CONFIG =config;
+        return { bool: 200 }
     } catch (error) {
         await CREATE_LOG(5)
         return { bool: false, code: error, icode: 5 }
@@ -79,5 +85,5 @@ const UPDATE_CONFIG = async(config)=>{
 module.exports = {
     READ_USERCONFIG,
     UPDATE_CONFIG,
-
+    USER_CONFIG
 }

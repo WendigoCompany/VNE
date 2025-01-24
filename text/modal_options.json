@@ -11,7 +11,13 @@
     "modal-fast-confirm": "REVERT CHANGES?",
     "modal-option-btn-confirm": "CLOSE",
     "modal-option-btn-save": "SAVE",
-    "modal-option-btn-cancel": "REVERT"
+    "modal-option-btn-cancel": "REVERT",
+    "modal-option-music": "MUSIC",
+    "modal-option-sfx": "SFX",
+    "modal-lang": "LANGUAGE",
+    "modal-txtspeed": "TEXT SPEED",
+    "modal-txtauto": "AUTO SPEED",
+    "modal-save-confirm": "DO YOU WANT TO SAVE CHANGES?"
   },
   "es": {
     "modal-display": "PANTALLA",
@@ -25,6 +31,12 @@
     "modal-fast-confirm": "¿REVERTIR  CAMBIOS?",
     "modal-option-btn-confirm": "CERRAR",
     "modal-option-btn-save": "GUARDAR",
-    "modal-option-btn-cancel": "REVERTIR"
+    "modal-option-btn-cancel": "REVERTIR",
+    "modal-option-music": "MUSICA",
+    "modal-option-sfx": "SFX",
+    "modal-lang": "IDIOMA",
+    "modal-txtspeed": "VELOCIDAD TEXTO",
+    "modal-txtauto": "VELOCIDAD MODO-AUTO",
+    "modal-save-confirm": "¿QUIERES GUARDAR LOS CAMBIOS?"
   }
 }

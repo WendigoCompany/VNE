@@ -6,6 +6,7 @@ const { } = require('./src/txt_holder');
 const { internal, log } = require("console");
 
 const { CHANGE_RESOLUTION } = require('./src/controllers/screen_functions');
+const { READ_USERCONFIG } = require('./src/controllers/userdata_manager');
 
 
 function createWindow() {
@@ -38,20 +39,33 @@ function createWindow() {
 
 
 
-  ipcMain.on('update-window-fs', (e, fscreen) => {
+  ipcMain.on('update-window-fs', async (e, fscreen) => {
 
-    let size = {};
+    const config = READ_USERCONFIG()
+      .then((userconfig) => {
+        let size = {};
+        if (fscreen.fullscreen) {
+          // size = screen.getPrimaryDisplay().size;
 
-    if (fscreen.fullscreen) {
-      size = screen.getPrimaryDisplay().size;
-      mainWindow.setSize(size.width, size.height)
-      mainWindow.setBounds({ x: (width - size.width) / 2, y: (height - size.height) / 2, width: size.width, height: size.height })
-      mainWindow.setFullScreen(fscreen.fullscreen)
-      e.reply("re-fullscreen", { w: size.width, h: size.height })
-    } else {
-      e.reply("re-no-fullscreen", {})
-      mainWindow.setFullScreen(fscreen.fullscreen)
-    }
+
+          userconfig = userconfig.data;
+          mainWindow.setSize(userconfig.fullscreen_params.w, userconfig.fullscreen_params.h)
+          mainWindow.setBounds({ x: (width - userconfig.fullscreen_params.w) / 2, y: (height - userconfig.fullscreen_params.h) / 2, width: userconfig.fullscreen_params.w, height: userconfig.fullscreen_params.h})
+          mainWindow.setFullScreen(fscreen.fullscreen)
+          // e.reply("re-fullscreen", { w: size.width, h: size.height })
+        } else {
+
+          e.reply("re-no-fullscreen", {})
+          mainWindow.setFullScreen(fscreen.fullscreen)
+        }
+
+
+
+      })
+      .catch((err) => {
+        console.log(err);
+        
+      });
 
 
 
@@ -75,9 +89,9 @@ function createWindow() {
     mainWindow.setBounds(bounds)
     mainWindow.setSize(size.w, size.h)
 
-    e.reply("re-update-window-size",size)
+    e.reply("re-update-window-size", size)
 
-    
+
   });
 
   ipcMain.on('send-console-log', (e, txt) => {
