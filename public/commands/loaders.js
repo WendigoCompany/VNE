@@ -40,7 +40,11 @@ const LOAD_MAIN_MENU = () => {
             TTK = 0
             document.getElementById("mm-modal-exit").onclick = EXIT_FUNCTION
             document.getElementById("mm-modal-options").onclick = OPTION_MODAL
-
+            document.getElementById("mm-modal-credits").onclick = ()=>{
+                MANAGE_UI_VISI(1,"off")
+                MANAGE_UI_VISI(2,"on")
+            }
+         
             clearInterval(int)
             // setTimeout(() => {
             //     SET_MUSIC("music_menu.mp3")

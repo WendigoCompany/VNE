@@ -25,6 +25,9 @@ const REVERT_CHANGES = () => {
         SET_ROOT_SIZE(newSize);
         SET_IMAGE_CONTAINER(newSize);
     
+    }else{
+        SET_ROOT_SIZE(USER_CONFIG.fullscreen_params);
+        SET_IMAGE_CONTAINER(USER_CONFIG.fullscreen_params);
     }
 
 }
@@ -187,14 +190,14 @@ const UPDATE_RESOLUTION_SELECTOR = (mactual) => {
         }
     }
 
-    USER_CONFIG.resolution = resolution_selector.value;
-    const newSize = {
-        w: resolution_selector.value.split("x")[0],
-        h: resolution_selector.value.split("x")[1],
-    };
-    render.send("update-window-size", newSize);
-    SET_ROOT_SIZE(newSize);
-    SET_IMAGE_CONTAINER(newSize);
+    // USER_CONFIG.resolution = resolution_selector.value;
+    // const newSize = {
+    //     w: resolution_selector.value.split("x")[0],
+    //     h: resolution_selector.value.split("x")[1],
+    // };
+    // render.send("update-window-size", newSize);
+    // SET_ROOT_SIZE(newSize);
+    // SET_IMAGE_CONTAINER(newSize);
 
     resolution_selector.onchange = (e) => {
         USER_CONFIG.resolution = e.target.value;
@@ -279,6 +282,16 @@ const OPTION_MODAL_DISPLAY = (mactual) => {
         aspect_selector.onchange = (e) => {
             USER_CONFIG.aspect = e.target.value;
             UPDATE_RESOLUTION_SELECTOR(mactual);
+            const resolution_selector = document.getElementById("resolution");
+            USER_CONFIG.resolution = resolution_selector.value;
+            const newSize = {
+                w: resolution_selector.value.split("x")[0],
+                h: resolution_selector.value.split("x")[1],
+            };
+            render.send("update-window-size", newSize);
+            SET_ROOT_SIZE(newSize);
+            SET_IMAGE_CONTAINER(newSize);
+        
         };
     }
     document.getElementById("en-fullscreen").onclick = () => {
